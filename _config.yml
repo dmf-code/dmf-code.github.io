@@ -103,11 +103,8 @@ theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo:
+    github: https://github.com/dmf-code/dmf-code.github.io.git # Git仓库地址，username是Github用户名
+  branch: main # 部署到仓库的master(主)分支
 
-
-categories:
-- Diary
-tags:
-- PS3
-- Games
