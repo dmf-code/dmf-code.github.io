@@ -23,7 +23,7 @@ code_word_wrap: false
 
 
 # Disable all banner image
-disable_top_img: false
+disable_top_img: true
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
