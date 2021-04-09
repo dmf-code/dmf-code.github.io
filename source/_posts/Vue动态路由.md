@@ -3,6 +3,7 @@ title: Vue动态路由
 date: 2021-04-06 22:24:49
 tags: 前端
 categories: Vue
+cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210409224604.jpeg
 ---
 
 ### 为什么使用动态路由？

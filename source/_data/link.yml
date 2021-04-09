@@ -6,18 +6,18 @@
       avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
       descr: 快速、簡單且強大的網誌框架
 
-- class_name: 網站
-  class_desc: 值得推薦的網站
+- class_name: 书签
+  class_desc:   
   link_list:
-    - name: Youtube
-      link: https://www.youtube.com/
-      avatar: https://i.loli.net/2020/05/14/9ZkGg8v3azHJfM1.png
-      descr: 視頻網站
-    - name: Weibo
-      link: https://www.weibo.com/
-      avatar: https://i.loli.net/2020/05/14/TLJBum386vcnI1P.png
-      descr: 中國最大社交分享平台
-    - name: Twitter
-      link: https://twitter.com/
-      avatar: https://i.loli.net/2020/05/14/5VyHPQqR6LWF39a.png
-      descr: 社交分享平台
+    - name: 算法小抄
+      link: https://labuladong.gitbook.io/algo/
+      avatar: https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3288212039,2933040612&fm=15&gp=0.jpg
+      descr: 算法笔记
+    - name: 面试圈
+      link: http://www.mianshigee.com/company
+      avatar: https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3397684384,1519374098&fm=26&gp=0.jpg
+      descr: 面试信息分享
+    - name: 小米信息部技术团队
+      link: https://xiaomi-info.github.io/
+      avatar: https://xiaomi-info.github.io/css/images/logo.png
+      descr: 小米技术分享文章

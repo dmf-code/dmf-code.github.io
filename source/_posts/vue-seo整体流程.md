@@ -3,6 +3,7 @@ title: vue-seo整体流程
 date: 2021-04-07 19:18:16
 tags: seo
 categories: 捣鼓小东西
+cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210409224341.jpeg
 ---
 
 ### 序

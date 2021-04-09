@@ -3,6 +3,7 @@ title: HTTP的content-type不同导致数据获取问题
 date: 2021-04-07 18:51:04
 tags: 计算机网络
 categories: http
+cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210409224722.jpeg
 ---
 
 ### 序
