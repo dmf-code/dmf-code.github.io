@@ -1,3 +1,7 @@
+avatar:
+  img: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210410150305.jpeg
+  effect: false # 頭像會一直轉圈
+
 menu:
   首页: / || fas fa-home
   时间轴: /archives/ || fas fa-archive
