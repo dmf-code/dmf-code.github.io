@@ -49,6 +49,8 @@ set https_proxy=
 
 这次确实是被环境给坑了，也是自己对于问题的处理能力不足的体现。
 
+> GoLand编辑器需要使用 go list -m -json all 进行包加载
+
 [goproxy issue](https://github.com/goproxy/goproxy.cn/issues/105)
 
 
