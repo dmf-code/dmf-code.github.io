@@ -3,7 +3,7 @@ title: nginx配置文件
 date: 2021-06-24 00:09:19
 tags: nginx
 categories: nginx
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210624001106.png
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210624001106.png
 ---
 
 ### location 中 root 与 alias 的区别
@@ -13,6 +13,7 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210624001
 配置 `nginx` 后端访问路径时，发现无法将静态文件识别出来。
 
 使用 `root` 配置方式：
+
 ```conf
 location /api {
 	    root   /root/server/public;
@@ -21,6 +22,7 @@ location /api {
 ```
 
 使用 `alias` 配置方式：
+
 ```conf
 location /api {
 	    alias   /root/server/public;

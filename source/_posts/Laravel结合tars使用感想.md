@@ -3,7 +3,7 @@ title: Laravel结合tars使用感想
 date: 2021-05-09 18:32:51
 tags: tars
 categories: tars
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509185102.png
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185102.png
 ---
 
 ### 序
@@ -22,13 +22,10 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509185
 
 ### 维护成本
 
- `laravel-tars` 现在是单人维护，所以这个框架的版本停留在 `laravel 5.5` , 这个其实是一个非常致命的问题，因为现在 `5.5.*` 也是脱离了 `tls` 了。而且开源作者的重心也是不在上面了，要使用 `tars` 这套架构就要多留心了，成本是非常高的。
+`laravel-tars` 现在是单人维护，所以这个框架的版本停留在 `laravel 5.5` , 这个其实是一个非常致命的问题，因为现在 `5.5.*` 也是脱离了 `tls` 了。而且开源作者的重心也是不在上面了，要使用 `tars` 这套架构就要多留心了，成本是非常高的。
 
 ### 问题总结
+
 1. `Carbon` 包需要不兼容升级去修复旧版本问题，然而 `laravel` 版本还是 `5.5` 导致 `Carbon` 无法升级
 2. `laravel` 不支持协程
 3. `laravel` 项目结构复杂与 `swoole` 结合后很容易出现内存泄漏问题
-
-
-
-

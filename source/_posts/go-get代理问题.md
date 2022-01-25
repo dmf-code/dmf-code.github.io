@@ -3,7 +3,7 @@ title: go_get代理问题
 date: 2021-05-09 19:14:10
 tags: go
 categories: go问题集
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509191456.png
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509191456.png
 ---
 
 ### 问题
@@ -14,7 +14,7 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509191
 
 添加国内镜像 `https://goproxy.cn/` 这个网站是七牛云支持的，七牛是最早做这方面的，所以是当前最佳的方案。
 
-![image.png](https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509191525.png)
+![image.png](https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509191525.png)
 
 ### 坑点
 
@@ -27,7 +27,7 @@ go get -u github.com/stretchr/testify
 然后出现如下的问题
 
 ```shell
-go get github.com/stretchr/testify: module github.com/stretchr/testify: 
+go get github.com/stretchr/testify: module github.com/stretchr/testify:
 Get "https://goproxy.cn/github.com/stretchr/testify/@v/list": Method Not Allowed
 ```
 
@@ -49,8 +49,6 @@ set https_proxy=
 
 这次确实是被环境给坑了，也是自己对于问题的处理能力不足的体现。
 
-> GoLand编辑器需要使用 go list -m -json all 进行包加载
+> GoLand 编辑器需要使用 go list -m -json all 进行包加载
 
 [goproxy issue](https://github.com/goproxy/goproxy.cn/issues/105)
-
-

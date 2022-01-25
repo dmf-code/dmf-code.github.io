@@ -3,7 +3,7 @@ title: Carbon当月第几周问题
 date: 2021-05-09 19:01:26
 tags: php
 categories: php问题集
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509190213.png
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509190213.png
 ---
 
 ### 序
@@ -23,7 +23,7 @@ Carbon::now()->weekOfMonth
 2020-11-30 周一 第5周
 ```
 
-![image.png](https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210509190239.png)
+![image.png](https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509190239.png)
 
 观察发现，这两个值不应该相等的。所以这里只能是查看 `Carbon` 里面的具体实现了。
 
@@ -36,7 +36,7 @@ case $name === 'weekOfMonth':
 
 ```
 
-搜索 `weekOfMonth` 我们发现，这个函数只是简单的使用 `29 / 7` 然后向上取整（[ceil函数](https://www.php.net/manual/zh/function.ceil.php)）。所以就会存在 `29 / 7` 和 `30 / 7` 向上取整的结果都是 `5` 的情况。
+搜索 `weekOfMonth` 我们发现，这个函数只是简单的使用 `29 / 7` 然后向上取整（[ceil 函数](https://www.php.net/manual/zh/function.ceil.php)）。所以就会存在 `29 / 7` 和 `30 / 7` 向上取整的结果都是 `5` 的情况。
 
 然后我们可以看见它下面还有一个类似的函数 `weekNumberInMonth` 。
 
@@ -52,6 +52,5 @@ case $name === 'weekNumberInMonth':
 在 `github` 上面搜到的结果是[weekNumberInMonth return 0](https://github.com/briannesbitt/Carbon/issues/1879)。
 
 得到的结论就是现在这个版本 `dayOfWeek` 星期日-星期六采用的是 `0 - 6` 表示，然后想要得到正确的显示就需要使用 `dayOfWeekIso` 然后这个值获取的是星期一到星期日，用 `1 - 7` 表示。
-
 
 最后这里可以更新为最新的包就解决这个问题了，其实这个也不算 `bug` 因为不同的规则定义就存在不同的第几周。

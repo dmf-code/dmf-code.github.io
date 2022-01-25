@@ -1,5 +1,5 @@
 avatar:
-  img: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210410150305.jpeg
+  img: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg
   effect: false # 頭像會一直轉圈
 
 menu:
@@ -23,7 +23,6 @@ hide_sidebar_menu_child: false
 social:
   fab fa-github: https://github.com/dmf-code || Github
 
-
 # Comments System
 # --------------------------------------
 
@@ -31,8 +30,8 @@ comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo
   use:
-  # - Valine
-  # - Disqus
+    # - Valine
+    # - Disqus
     - Utterances
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
@@ -50,14 +49,12 @@ utterances:
   dark_theme: photon-dark
   crossorigin: anonymous
 
-
 highlight_theme: mac light
 highlight_copy: true # copy button
 highlight_lang: true # show the code language
 highlight_shrink: false # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
 highlight_height_limit: false # unit: px
 code_word_wrap: false
-
 
 # Disable all banner image
 disable_top_img: true
@@ -70,9 +67,8 @@ error_img:
 # A simple 404 page
 error_404:
   enable: false
-  subtitle: 'Page Not Found'
+  subtitle: "Page Not Found"
   background: https://i.loli.net/2020/05/19/aKOcLiyPl2JQdFD.png
-
 
 post_meta:
   page:
@@ -88,7 +84,6 @@ post_meta:
     tags: true # true or false 文章頁是否顯示標籤
     label: true # true or false 顯示描述性文字
 
-
 # wordcount (字數統計)
 wordcount:
   enable: true
@@ -98,10 +93,10 @@ wordcount:
 
 aside:
   enable: true
-  hide: false  
+  hide: false
   button: true
   mobile: true # 手機頁面（ 顯示寬度 < 768px ）是否顯示aside內容
-  position: right  # left or right
+  position: right # left or right
   card_author:
     enable: true
     description:
@@ -133,7 +128,6 @@ aside:
     post_count: true
     last_push_date: true
 
-
 theme_color:
   enable: true
   main: "#49B1F5"
@@ -147,7 +141,7 @@ theme_color:
   code_background: "rgba(27, 31, 35, .05)"
   toc_color: "#00c4b6"
   blockquote_padding_color: "#49b1f5"
-  blockquote_background_color: "#49b1f5"  
+  blockquote_background_color: "#49b1f5"
 
 # copy settings
 # copyright: Add the copyright information after copied content (複製的內容後面加上版權信息)
@@ -162,13 +156,11 @@ medium_zoom: true
 # Pjax [Beta]
 # It may contain bugs and unstable, give feedback when you find the bugs.
 # https://github.com/MoOx/pjax
-pjax: 
+pjax:
   enable: true
   exclude:
     - /music/
     - /no-pjax/
-
-
 
 # CDN
 # Don't modify the following settings unless you know how they work

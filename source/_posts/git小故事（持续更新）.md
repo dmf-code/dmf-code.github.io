@@ -3,10 +3,8 @@ title: git小故事（持续更新）
 date: 2021-05-22 00:34:16
 tags: git
 categories: git
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210522004017.png
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210522004017.png
 ---
-
-
 
 ### checkout 远端分支指定问题
 
@@ -14,7 +12,7 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210522004
 
 使用 `git checkout -b dev-v2 origin/dev` 拉取新的本地分支，然后 `git pull` 操作
 
-![](https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210522011056.png)
+![](https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210522011056.png)
 
 #### 隐患
 
@@ -26,7 +24,7 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210522004
 
 这里面其实就是远端分支在作怪，使用 `git checkout -b dev-v2 origin/dev` 命令会默认执行了 `git branch --set-upstream-to=origin/dev` , 然后你的远端分支就是 `origin/dev` 了。我们可以使用 `git branch -vv` 来查看相关远端分支。
 
-![](https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210522011131.png)
+![](https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210522011131.png)
 
 解决方法有两种：
 
@@ -44,17 +42,8 @@ git branch -u origin/dev-v2
 git branch --set-upstream-to=origin/dev-v2
 ```
 
-
-
 两种方法其实也是要重新设置远端分支，但是比较推荐第二种。应为第一种默认就设置成 `origin/dev` 为远端分支，有时候会出现忘记重新设置远端分支的情况，然后使用 `git pull` 命令就会导致仓库代码被污染了。第二种情况就会提醒你需要设置远端分支，所以就能避免你粗心大意的问题。
 
 #### 总结
 
-出现这些问题其实也就是他们的 `git` 基础都不牢固，所以才没有立刻发现问题所在。最后想说的是 ***基础不牢，地动山摇***。
-
-
-
-
-
-
-
+出现这些问题其实也就是他们的 `git` 基础都不牢固，所以才没有立刻发现问题所在。最后想说的是 **_基础不牢，地动山摇_**。

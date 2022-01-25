@@ -3,24 +3,25 @@ title: CRM系统设计思路
 date: 2021-04-13 22:45:28
 tags: 业务场景思考
 categories: 系统设计
-cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210413224609.jpeg
+cover: https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg
 ---
 
 ### 序
 
 `CRM` 全称 `Customer Relationship Management`,中文意思是客户关系管理。
 
-![image.png](https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210413224708.png)
+![image.png](https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224708.png)
 
 ### 为什么需要 `CRM` ?
 
 对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 `Excel` 里面找时间的浪费是非常大的。为了提高整体效率，`CRM` 系统的出现是非常必要的。
 
-> 普通的 `CRM` 可能是服务于自身公司的。然而我接触的却是平台服务商家的层次。相对传统的模式多出了一个 ***平台*** 角色。
+> 普通的 `CRM` 可能是服务于自身公司的。然而我接触的却是平台服务商家的层次。相对传统的模式多出了一个 **_平台_** 角色。
 
 ### 流程
 
 平台端通过自身渠道获取到一系列客资，然后在平台后台中对客资录入。客资录入后就可以对商家渠道进行分发。
+
 1. 人工指派
 2. 红包雨渠道
 3. 自动匹配
@@ -28,11 +29,10 @@ cover: https://raw.githubusercontent.com/dmf-code/picture/main/picGo/20210413224
 其中红包雨和自动匹配都是采用智能匹配的形式，这里会对客资和商家进行打标操作，然后匹配对应的打标数据，提高客资与商家的契合度。
 
 然后这里面还存在着商家的权重数据这些
+
 1. 基础获客数
 2. 权重获客数
 
 基础获客数是由平台运营进行人工配置数量，只有自动派发小于基础获客数才会进行，这里面还有个每天派发数限制，保证一天不会全部获客数使用完。
 
 权重获客数是由商家在商家端做出的一系列操作，然后权重系统运算得出的分值，这个是每周更新一次。然后这个分值就会决定你在红包雨中能抢多少客资。
-
-
