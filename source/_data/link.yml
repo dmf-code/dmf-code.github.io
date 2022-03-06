@@ -7,7 +7,7 @@
       descr: 快速、簡單且強大的網誌框架
 
 - class_name: 书签
-  class_desc:   
+  class_desc:
   link_list:
     - name: 算法小抄
       link: https://labuladong.gitbook.io/algo/
@@ -21,3 +21,7 @@
       link: https://xiaomi-info.github.io/
       avatar: https://xiaomi-info.github.io/css/images/logo.png
       descr: 小米技术分享文章
+    - name: MIT 6.824 分布式系统
+      link: https://pdos.csail.mit.edu/6.824/schedule.html
+      avatar: https://baike.baidu.com/pic/%E9%BA%BB%E7%9C%81%E7%90%86%E5%B7%A5%E5%AD%A6%E9%99%A2/117999/0/a08b87d6277f9e2f02782b1d1030e924b899f351?fr=lemma&ct=single
+      descr: MIT 6.824 分布式系统
