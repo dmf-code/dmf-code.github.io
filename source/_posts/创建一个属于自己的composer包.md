@@ -73,3 +73,32 @@ composer dump-autoload -o
 ![](https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220312140025.png)
 
 到这里就可以愉快的编写 `composer` 包逻辑了
+
+#### 代码部署到 `github`
+
+在 `github` 上创建仓库
+![](https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220314220612.png)
+
+使用第二个已存在仓库推送
+![](https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220314222328.png)
+
+在项目目录下初始化 `git`
+
+```shell
+git init
+
+git remote add origin git@github.com:dmf-code/basic.git
+git checkout -b main
+git push --set-upstream origin main
+```
+
+> 因为我的 git 初始化项目还是默认 master 为主分支，所以需要改为 main
+
+这样子 `github` 上面就存在我们的代码仓库了。
+
+#### 提交 `github` 项目路径到 `packagist`
+
+复制 `github` 项目路径到 `packagist` 然后提交，这里省略了注册和 `github` 授权部分，不清楚的可以
+百度一下。
+
+提交项目完成后，只要再在 `github` 中为项目打个 `tag` 就完成了自己的 `composer` 包了

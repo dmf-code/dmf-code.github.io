@@ -23,5 +23,9 @@
       descr: 小米技术分享文章
     - name: MIT 6.824 分布式系统
       link: https://pdos.csail.mit.edu/6.824/schedule.html
-      avatar: https://baike.baidu.com/pic/%E9%BA%BB%E7%9C%81%E7%90%86%E5%B7%A5%E5%AD%A6%E9%99%A2/117999/0/a08b87d6277f9e2f02782b1d1030e924b899f351?fr=lemma&ct=single
+      avatar: https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220317000927.png
       descr: MIT 6.824 分布式系统
+    - name: Spring实战（第5版 ）
+      link: https://potoyang.gitbook.io/spring-in-action-v5/
+      avatar: https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220317000948.png
+      descr: Spring实战（第5版 ）
