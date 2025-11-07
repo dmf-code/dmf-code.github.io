@@ -100,6 +100,9 @@ ignore:
 theme: butterfly
 
 
+# https://analytics.google.com/analytics/web/
+google_analytics: G-MB8J629MTR
+
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
