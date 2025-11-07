@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>梧桐树下</title><meta name="author" content="梧桐树下"><meta name="copyright" content="梧桐树下"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="梧桐树下">
+<meta property="og:url" content="https://siteg.cc/page/2/index.html">
+<meta property="og:site_name" content="梧桐树下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg">
+<meta property="article:author" content="梧桐树下">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://siteg.cc/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8J629MTR"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-MB8J629MTR')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-MB8J629MTR', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 梧桐树下","link":"链接: ","source":"来源: 梧桐树下","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '梧桐树下',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">梧桐树下</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">梧桐树下</h1></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/3c625f2d4a71/" title="go_get代理问题"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509191456.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="go_get代理问题"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/3c625f2d4a71/" title="go_get代理问题">go_get代理问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T11:14:10.000Z" title="发表于 2021-05-09 19:14:10">2021-05-09</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.905Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/go/">go</a></span></div><div class="content">问题使用 go get 命令无法成功安装第三方库，这问题是被墙了导致的。 解决方案添加国内镜像 https://goproxy.cn/ 这个网站是七牛云支持的，七牛是最早做这方面的，所以是当前最佳的方案。  坑点一开始学习 GO 的时候在网上也找到过这个镜像方案，但是却一直出现 404 的情况。这里以一个测试库为例 1go get -u github.com/stretchr/testify  然后出现如下的问题 12go get github.com/stretchr/testify: module github.com/stretchr/testify:Get &quot;https://goproxy.cn/github.com/stretchr/testify/@v/list&quot;: Method Not Allowed  这个问题很奇怪，所以在我刚入门的时候一直配置也无法使用国内镜像。然后找到了一种另类的方法 12set http_proxy=127.0.0.1:1080set https_proxy=127.0.0.1:1080  这样子我们就可以通过自己搭建代...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/f5ac7215a378/" title="Carbon当月第几周问题"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509190213.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Carbon当月第几周问题"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/f5ac7215a378/" title="Carbon当月第几周问题">Carbon当月第几周问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T11:01:26.000Z" title="发表于 2021-05-09 19:01:26">2021-05-09</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.899Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/php/">php</a></span></div><div class="content">序今天遇到一个问题，那就是使用 Carbon 包获取当月的第几周时不准确。 获取方式1Carbon::now()-&gt;weekOfMonth  结果122020-11-29 周日 第5周2020-11-30 周一 第5周   观察发现，这两个值不应该相等的。所以这里只能是查看 Carbon 里面的具体实现了。 追查源码1234case $name === &#x27;weekOfMonth&#x27;:     return (int) ceil($this-&gt;day / static::DAYS_PER_WEEK);  搜索 weekOfMonth 我们发现，这个函数只是简单的使用 29 / 7 然后向上取整（ceil 函数）。所以就会存在 29 / 7 和 30 / 7 向上取整的结果都是 5 的情况。 然后我们可以看见它下面还有一个类似的函数 weekNumberInMonth 。 1234case $name === &#x27;weekNumberInMonth&#x27;:     return (int) ceil(($this-&gt;day + $th...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/0a388c9b6b76/" title="项目发布中的tars_start.sh是如何生成的？"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185454.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目发布中的tars_start.sh是如何生成的？"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/0a388c9b6b76/" title="项目发布中的tars_start.sh是如何生成的？">项目发布中的tars_start.sh是如何生成的？</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T10:54:17.000Z" title="发表于 2021-05-09 18:54:17">2021-05-09</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.917Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/tars/">tars</a></span></div><div class="content">开始发布任务之后，我们都会在 bin 目录下看见 tars_start.sh 文件。但是这个文件是如何获取的呢？为了探究这个问题，我们首先下载源码到本地。 1git clone git@github.com:TarsCloud/TarsFramework.git  然后这里我使用 vscode 进行全局搜索 tars_start.sh 这个文件名。  从中我们发现其实是使用了常量 TARS_SCRIPT 这个变量，所以我们再搜索这个变量。  然后我们就会发现 save2file 函数就是保存 tars_start.sh 的脚本，然后我们可以推测这个代码中是否还存在着具体文件逻辑写入。  然后我在前面就找到了如下的代码，对比发现知道，就是从这里面进行编写的服务启动脚本。   </div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/a79a65d03fba/" title="Laravel结合tars使用感想"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185102.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Laravel结合tars使用感想"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/a79a65d03fba/" title="Laravel结合tars使用感想">Laravel结合tars使用感想</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T10:32:51.000Z" title="发表于 2021-05-09 18:32:51">2021-05-09</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.901Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/tars/">tars</a></span></div><div class="content">序使用 laravel-tars 这个扩展包做开发已经一年了，越来越觉得 laravel 结合 tars 使用非常的蹩脚。我刚接触 tars 的时候，刚好官方也进行推广使用。但是好景不长，官方文档虽然是越来越完善了，但是论坛简直是一潭死水，没啥人使用 tars 进行开发。 问题如何解决？把 tars 当做硬骨头来啃下，要看 tars 的 c++ 代码时不可能的了，毕竟这个工程量非常大，没必要将时间浪费在这里，我们通常可以相信框架的健壮性。然后就是 tarsphp 这一块必然就需要啃下，看这块的时候，我发现之前负责这块的阅文集团好像也是将 tarsphp 全部转移到 tarsjava 了。导致里面很多问题提了 issue 解决很慢，不过这块不大，慢慢的我也了解整体的代码了。 提 issue 的路上因为历史遗留的问题，我们公司使用的都是 laravel-tars 这个框架，这个是罗晓俊开源的一个项目，技术是非常牛逼的，不过因为用户量少，并且作者可能也没有投入到生产环境，在更新版本的时候会出现一些意想不到的 bug, 我也是多次给其提 issue, 也算是为 tarsphp 生态尽一份...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/de9624f0e26e/" title="tarsweb平台搭建"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="tarsweb平台搭建"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/de9624f0e26e/" title="tarsweb平台搭建">tarsweb平台搭建</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T10:17:48.000Z" title="发表于 2021-05-09 18:17:48">2021-05-09</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.908Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/tars/">tars</a></span></div><div class="content">环境推荐使用：Centos7 docker 环境搭建可以自己在网上找教程，文章中就不再说明了。 docker-compose 安装123sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-composesudo chmod +x /usr/local/bin/docker-compose  DaoCloud 镜像配置123curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-composechmod +x /usr/local/bin/docker-compose  tars 环境搭建 docker-compose 文件12345678910111213...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7fcc92626d7e/" title="CRM系统设计思路"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CRM系统设计思路"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7fcc92626d7e/" title="CRM系统设计思路">CRM系统设计思路</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-13T14:45:28.000Z" title="发表于 2021-04-13 22:45:28">2021-04-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.898Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%E6%80%9D%E8%80%83/">业务场景思考</a></span></div><div class="content">序CRM 全称 Customer Relationship Management,中文意思是客户关系管理。  为什么需要 CRM ?对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 Excel 里面找时间的浪费是非常大的。为了提高整体效率，CRM 系统的出现是非常必要的。  普通的 CRM 可能是服务于自身公司的。然而我接触的却是平台服务商家的层次。相对传统的模式多出了一个 平台 角色。  流程平台端通过自身渠道获取到一系列客资，然后在平台后台中对客资录入。客资录入后就可以对商家渠道进行分发。  人工指派 红包雨渠道 自动匹配  其中红包雨和自动匹配都是采用智能匹配的形式，这里会对客资和商家进行打标操作，然后匹配对应的打标数据，提高客资与商家的契合度。 然后这里面还存在着商家的权重数据这些  基础获客数 权重获客数  基础获客数是由平台运营进行人工配置数量，只有自动派发小于基础获客数才会进行，这里面还有个每天派发数限制，保证一天不会全部获客数使用完。 权重获客数是由商家在商家端做出的一系列操作，然后权重系统运算得出的分值，这...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/4089df62f534/" title="设计模式系列-抽象工厂模式"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@article/picGo/20210413221746.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计模式系列-抽象工厂模式"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/4089df62f534/" title="设计模式系列-抽象工厂模式">设计模式系列-抽象工厂模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-13T14:16:52.000Z" title="发表于 2021-04-13 22:16:52">2021-04-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.914Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">介绍抽象工厂模式也可以叫为产品族模式，因为它是负责一个套餐的生产。比如一个硬件代工厂要生产 Mac 的鼠标和键盘，然后又接到了华为的鼠标和键盘生成需求。因为华为和 Mac 是两个不同的公司，所以他们的产品外观，性能也有不同要求。然后将这些组合起来一起，就形成了一个产品族。 项目结构 UML 图 代码Mouse.php 1234567&lt;?phpinterface Mouse&#123;    public function click();&#125;  Keyboard.php 1234567&lt;?phpinterface Keyboard&#123;    public function input();&#125;  Factory.php 123456789&lt;?phpinterface Factory&#123;    public function createMouse();    public function createKeyboard();&#125;  WinKeyboard.php 1234567891011&lt;?phpclass Win...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/2c27b9e99745/" title="设计模式系列-工厂方法模式"><img class="post-bg" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@article/picGo/20210413221449.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="设计模式系列-工厂方法模式"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/2c27b9e99745/" title="设计模式系列-工厂方法模式">设计模式系列-工厂方法模式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-13T14:10:20.000Z" title="发表于 2021-04-13 22:10:20">2021-04-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.913Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></span></div><div class="content">介绍工厂实例推迟到子类实例化，从而避免了简单工厂模式对内部进行修改的问题。所以工厂方法模式就是让子类来做决定。 项目结构 UML 图 代码Mouse.php 1234567&lt;?phpinterface Mouse&#123;    public function click();&#125;  Factory.php 1234567&lt;?phpinterface Factory&#123;    public function create();&#125;  WinMouse.php 1234567891011&lt;?phpclass WinMouse implements Mouse&#123;    public function click()    &#123;        return &#x27;win mouse click&#x27;;    &#125;&#125;  MacMouse.php 1234567891011&lt;?phpclass MacMouse implements Mouse&#123;    public function...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">梧桐树下</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/dmf-code" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">hello world!</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e3a9f1b5ccce/" title="phpstorm设置"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220725102830.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="phpstorm设置"/></a><div class="content"><a class="title" href="/posts/e3a9f1b5ccce/" title="phpstorm设置">phpstorm设置</a><time datetime="2022-07-25T02:25:28.000Z" title="发表于 2022-07-25 10:25:28">2022-07-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311212849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="创建一个属于自己的composer包"/></a><div class="content"><a class="title" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包">创建一个属于自己的composer包</a><time datetime="2022-03-11T13:27:52.000Z" title="发表于 2022-03-11 21:27:52">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b714019c46a6/" title="项目代码演进"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311211230.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目代码演进"/></a><div class="content"><a class="title" href="/posts/b714019c46a6/" title="项目代码演进">项目代码演进</a><time datetime="2022-03-11T13:10:11.000Z" title="发表于 2022-03-11 21:10:11">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24511055805f/" title="解决github图床图片无法显示问题"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20220125214108.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决github图床图片无法显示问题"/></a><div class="content"><a class="title" href="/posts/24511055805f/" title="解决github图床图片无法显示问题">解决github图床图片无法显示问题</a><time datetime="2022-01-25T13:39:29.000Z" title="发表于 2022-01-25 21:39:29">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fadc5b6fb548/" title="docker-remote-api使用"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210812231825.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker-remote-api使用"/></a><div class="content"><a class="title" href="/posts/fadc5b6fb548/" title="docker-remote-api使用">docker-remote-api使用</a><time datetime="2021-08-12T15:17:08.000Z" title="发表于 2021-08-12 23:17:08">2021-08-12</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Vue/"><span class="card-category-list-name">Vue</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/git/"><span class="card-category-list-name">git</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/go%E9%97%AE%E9%A2%98%E9%9B%86/"><span class="card-category-list-name">go问题集</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/http/"><span class="card-category-list-name">http</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/nginx/"><span class="card-category-list-name">nginx</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/php/"><span class="card-category-list-name">php</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/phpstorm%E8%AE%BE%E7%BD%AE/"><span class="card-category-list-name">phpstorm设置</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/php/" style="font-size: 1.1em; color: #999">php</a> <a href="/tags/go/" style="font-size: 1.1em; color: #999">go</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.3em; color: #99a1ac">前端</a> <a href="/tags/%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2/" style="font-size: 1.1em; color: #999">环境部署</a> <a href="/tags/seo/" style="font-size: 1.1em; color: #999">seo</a> <a href="/tags/nginx/" style="font-size: 1.1em; color: #999">nginx</a> <a href="/tags/docker/" style="font-size: 1.1em; color: #999">docker</a> <a href="/tags/tars/" style="font-size: 1.5em; color: #99a9bf">tars</a> <a href="/tags/phpstorm%E8%AE%BE%E7%BD%AE/" style="font-size: 1.1em; color: #999">phpstorm设置</a> <a href="/tags/%E9%97%AE%E9%A2%98%E9%9B%86/" style="font-size: 1.3em; color: #99a1ac">问题集</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%88%86%E5%B1%82/" style="font-size: 1.1em; color: #999">代码分层</a> <a href="/tags/git/" style="font-size: 1.1em; color: #999">git</a> <a href="/tags/%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%E6%80%9D%E8%80%83/" style="font-size: 1.3em; color: #99a1ac">业务场景思考</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">计算机网络</a> <a href="/tags/composer/" style="font-size: 1.1em; color: #999">composer</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.5em; color: #99a9bf">设计模式</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/07/">
+            <span class="card-archive-list-date">
+              七月 2022
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/03/">
+            <span class="card-archive-list-date">
+              三月 2022
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2022/01/">
+            <span class="card-archive-list-date">
+              一月 2022
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2021/08/">
+            <span class="card-archive-list-date">
+              八月 2021
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2021/06/">
+            <span class="card-archive-list-date">
+              六月 2021
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2021/05/">
+            <span class="card-archive-list-date">
+              五月 2021
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2021/04/">
+            <span class="card-archive-list-date">
+              四月 2021
+            </span>
+            <span class="card-archive-list-count">10</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">23</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">11.2k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-11-07T10:37:54.608Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 梧桐树下</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 5.4.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

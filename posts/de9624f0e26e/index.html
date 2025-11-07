@@ -1,0 +1,302 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>tarsweb平台搭建 | 梧桐树下</title><meta name="author" content="梧桐树下"><meta name="copyright" content="梧桐树下"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="环境推荐使用：Centos7 docker 环境搭建可以自己在网上找教程，文章中就不再说明了。 docker-compose 安装123sudo curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.22.0&#x2F;docker-compose-&#96;uname -s&#96;-&#96;uname -m&#96; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docke">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tarsweb平台搭建">
+<meta property="og:url" content="https://siteg.cc/posts/de9624f0e26e/index.html">
+<meta property="og:site_name" content="梧桐树下">
+<meta property="og:description" content="环境推荐使用：Centos7 docker 环境搭建可以自己在网上找教程，文章中就不再说明了。 docker-compose 安装123sudo curl -L https:&#x2F;&#x2F;github.com&#x2F;docker&#x2F;compose&#x2F;releases&#x2F;download&#x2F;1.22.0&#x2F;docker-compose-&#96;uname -s&#96;-&#96;uname -m&#96; -o &#x2F;usr&#x2F;local&#x2F;bin&#x2F;docke">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png">
+<meta property="article:published_time" content="2021-05-09T10:17:48.000Z">
+<meta property="article:modified_time" content="2025-11-07T10:18:05.908Z">
+<meta property="article:author" content="梧桐树下">
+<meta property="article:tag" content="tars">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "tarsweb平台搭建",
+  "url": "https://siteg.cc/posts/de9624f0e26e/",
+  "image": "https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png",
+  "datePublished": "2021-05-09T10:17:48.000Z",
+  "dateModified": "2025-11-07T10:18:05.908Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "梧桐树下",
+      "url": "https://siteg.cc"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://siteg.cc/posts/de9624f0e26e/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8J629MTR"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-MB8J629MTR')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-MB8J629MTR', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 梧桐树下","link":"链接: ","source":"来源: 梧桐树下","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'tarsweb平台搭建',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">梧桐树下</span></a><a class="nav-page-title" href="/"><span class="site-name">tarsweb平台搭建</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">tarsweb平台搭建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-09T10:17:48.000Z" title="发表于 2021-05-09 18:17:48">2021-05-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.908Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/tars/">tars</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">967</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>环境推荐使用：<code>Centos7</code></p>
+<p><code>docker</code> 环境搭建可以自己在网上找教程，文章中就不再说明了。</p>
+<h4 id="docker-compose-安装"><a href="#docker-compose-安装" class="headerlink" title="docker-compose 安装"></a>docker-compose 安装</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h4 id="DaoCloud-镜像配置"><a href="#DaoCloud-镜像配置" class="headerlink" title="DaoCloud 镜像配置"></a>DaoCloud 镜像配置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</span><br><span class="line"></span><br><span class="line">chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</span><br></pre></td></tr></table></figure>
+
+<h4 id="tars-环境搭建-docker-compose-文件"><a href="#tars-环境搭建-docker-compose-文件" class="headerlink" title="tars 环境搭建 docker-compose 文件"></a>tars 环境搭建 docker-compose 文件</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">tars:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">tarscloud/tars:php</span></span><br><span class="line">    <span class="comment"># 自定义容器名称</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">tars</span></span><br><span class="line">    <span class="comment"># 自定义宿主机与容器之间的端口映射</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;80:80&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;20000-20005:20000-20005&quot;</span></span><br><span class="line">    <span class="comment"># 挂载宿主机与容器之间的文件路径</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/c/Users/tars_data:/data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/c/Users:/root/TarsShare</span></span><br><span class="line">    <span class="comment"># 自定义所需环境变量</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># 此选项用于将Tars的系统进程的数据目录挂载到 /data 目录之下</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">MOUNT_DATA=true</span></span><br><span class="line">      <span class="comment"># 数据库ip 可以使用容器名来获取动态分配的ip地址</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DBIP=mysql</span></span><br><span class="line">      <span class="comment"># 数据库端口</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DBPort=3306</span></span><br><span class="line">      <span class="comment"># 数据库使用者</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DBUser=root</span></span><br><span class="line">      <span class="comment"># 数据库密码</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DBPassword=tars2015</span></span><br><span class="line">    <span class="comment"># 依赖服务</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mysql</span></span><br><span class="line">    <span class="comment"># 所属网络</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">kong-net</span></span><br><span class="line">    <span class="comment"># 设置容器访问宿主机权限</span></span><br><span class="line">    <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mysql:5.7.28</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">mysql</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3306:3306&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># 挂载数据库目录</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/mysql_data:/var/lib/mysql&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># 设置数据库密码</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;MYSQL_ROOT_PASSWORD=tars2015&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line">    <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line">    <span class="attr">command:</span></span><br><span class="line">      <span class="comment"># 设置支持全零的date字段值</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--sql_mode=NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span></span><br><span class="line">      <span class="comment"># window下mysql不能使用aio</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--innodb_use_native_aio=0</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;nginx:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;nginx&quot;</span></span><br><span class="line">    <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;12226:12226&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;1234:1234&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;12345:80&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/nginx/web:/usr/share/nginx/html&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/nginx/vhost:/etc/nginx/conf.d&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/nginx/nginx.conf:/etc/nginx/nginx.conf&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">tars</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;redis:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;redis&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/redis:/etc/redis&quot;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">command:</span></span><br><span class="line">      <span class="comment"># 数据本地写入应用</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kong:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;kong:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;kong&quot;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8000:8000&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8001:8001&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8443:8443&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8444:8444&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="comment"># kong 信息输出设置</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_ADMIN_ACCESS_LOG=/dev/stdout&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_ADMIN_ERROR_LOG=/dev/stderr&quot;</span></span><br><span class="line">      <span class="comment"># 监听ip + port</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_ADMIN_LISTEN=0.0.0.0:8001&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_CASSANDRA_CONTACT_POINTS=kong-postgres&quot;</span></span><br><span class="line">      <span class="comment"># pg数据库名</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_DATABASE=kong&quot;</span></span><br><span class="line">      <span class="comment"># pg 主机名</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_HOST=kong-postgres&quot;</span></span><br><span class="line">      <span class="comment"># pg数据库</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_DATABASE=postgres&quot;</span></span><br><span class="line">      <span class="comment"># pg数据库密码</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_PASSWORD=tars2015&quot;</span></span><br><span class="line">      <span class="comment"># 用户限定</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_USER=kong&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PROXY_ACCESS_LOG=/dev/stdout&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PROXY_ERROR_LOG=/dev/stderr&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line">    <span class="comment"># 依赖服务</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-postgres&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-migrations&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kong-postgres:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;postgres:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;kong-postgres&quot;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;5432:5432&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;POSTGRES_USER=kong&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;POSTGRES_DB=kong&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;POSTGRES_PASSWORD=tars2015&quot;</span></span><br><span class="line">      <span class="comment"># 绑定pg数据目录</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;PGDATA=/tmp/postgres_data&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/c/Users/postgres_data:/tmp/postgres_data&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kong-migrations:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;kong:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;kong-migrations&quot;</span></span><br><span class="line">    <span class="comment"># 这个服务就是用来执行这个命令的</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">&quot;kong migrations bootstrap&quot;</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_CASSANDRA_CONTACT_POINTS=kong-postgres&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_DATABASE=kong&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_HOST=kong-postgres&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_DATABASE=postgres&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_PASSWORD=tars2015&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;KONG_PG_USER=kong&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-postgres&quot;</span></span><br><span class="line">    <span class="attr">links:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-postgres:kong-postgres&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;on-failure&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">kong-dashboard:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">&quot;hansonyao/kong-dashboard:latest&quot;</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">&quot;kong-dashboard&quot;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">&quot;always&quot;</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8084:8080&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-postgres&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-migrations&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong&quot;</span></span><br><span class="line">    <span class="comment"># 服务部署完成执行的命令，bboysoul用户名tars2015密码</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">&quot;start --kong-url http://kong:8001 --basic-auth bboysoul=tars2015&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;kong-net&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">kong-net:</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">&quot;bridge&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="启动，配置更新重启"><a href="#启动，配置更新重启" class="headerlink" title="启动，配置更新重启"></a>启动，配置更新重启</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h4 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose down</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509182411.png" alt="image.png"></p>
+<p>看见服务状态全部为 UP 就说明启动正常了，如果是有启动不正常的情况出现，我们可以尝试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs tars</span><br></pre></td></tr></table></figure>
+
+<p>来查看具体是报什么错误了，然后再具体情况具体解决</p>
+<p>查看具体 docker 容器的 ip 可以使用如下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect tars | grep IPAddress</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509182443.png" alt="image.png"></p>
+<p>要看具体的挂载，端口，网络的话也是使用上面的命令，不过要将 grep 去掉。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://siteg.cc">梧桐树下</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://siteg.cc/posts/de9624f0e26e/">https://siteg.cc/posts/de9624f0e26e/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://siteg.cc" target="_blank">梧桐树下</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tars/">tars</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/a79a65d03fba/" title="Laravel结合tars使用感想"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185102.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Laravel结合tars使用感想</div></div><div class="info-2"><div class="info-item-1">序使用 laravel-tars 这个扩展包做开发已经一年了，越来越觉得 laravel 结合 tars 使用非常的蹩脚。我刚接触 tars 的时候，刚好官方也进行推广使用。但是好景不长，官方文档虽然是越来越完善了，但是论坛简直是一潭死水，没啥人使用 tars 进行开发。 问题如何解决？把 tars 当做硬骨头来啃下，要看 tars 的 c++ 代码时不可能的了，毕竟这个工程量非常大，没必要将时间浪费在这里，我们通常可以相信框架的健壮性。然后就是 tarsphp 这一块必然就需要啃下，看这块的时候，我发现之前负责这块的阅文集团好像也是将 tarsphp 全部转移到 tarsjava 了。导致里面很多问题提了 issue 解决很慢，不过这块不大，慢慢的我也了解整体的代码了。 提 issue 的路上因为历史遗留的问题，我们公司使用的都是 laravel-tars 这个框架，这个是罗晓俊开源的一个项目，技术是非常牛逼的，不过因为用户量少，并且作者可能也没有投入到生产环境，在更新版本的时候会出现一些意想不到的 bug, 我也是多次给其提 issue, 也算是为 tarsphp 生态尽一份...</div></div></div></a><a class="pagination-related" href="/posts/7fcc92626d7e/" title="CRM系统设计思路"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CRM系统设计思路</div></div><div class="info-2"><div class="info-item-1">序CRM 全称 Customer Relationship Management,中文意思是客户关系管理。  为什么需要 CRM ?对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 Excel 里面找时间的浪费是非常大的。为了提高整体效率，CRM 系统的出现是非常必要的。  普通的 CRM 可能是服务于自身公司的。然而我接触的却是平台服务商家的层次。相对传统的模式多出了一个 平台 角色。  流程平台端通过自身渠道获取到一系列客资，然后在平台后台中对客资录入。客资录入后就可以对商家渠道进行分发。  人工指派 红包雨渠道 自动匹配  其中红包雨和自动匹配都是采用智能匹配的形式，这里会对客资和商家进行打标操作，然后匹配对应的打标数据，提高客资与商家的契合度。 然后这里面还存在着商家的权重数据这些  基础获客数 权重获客数  基础获客数是由平台运营进行人工配置数量，只有自动派发小于基础获客数才会进行，这里面还有个每天派发数限制，保证一天不会全部获客数使用完。 权重获客数是由商家在商家端做出的一系列操作，然后权重系统运算得出的分值，这...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/a79a65d03fba/" title="Laravel结合tars使用感想"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185102.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="info-item-2">Laravel结合tars使用感想</div></div><div class="info-2"><div class="info-item-1">序使用 laravel-tars 这个扩展包做开发已经一年了，越来越觉得 laravel 结合 tars 使用非常的蹩脚。我刚接触 tars 的时候，刚好官方也进行推广使用。但是好景不长，官方文档虽然是越来越完善了，但是论坛简直是一潭死水，没啥人使用 tars 进行开发。 问题如何解决？把 tars 当做硬骨头来啃下，要看 tars 的 c++ 代码时不可能的了，毕竟这个工程量非常大，没必要将时间浪费在这里，我们通常可以相信框架的健壮性。然后就是 tarsphp 这一块必然就需要啃下，看这块的时候，我发现之前负责这块的阅文集团好像也是将 tarsphp 全部转移到 tarsjava 了。导致里面很多问题提了 issue 解决很慢，不过这块不大，慢慢的我也了解整体的代码了。 提 issue 的路上因为历史遗留的问题，我们公司使用的都是 laravel-tars 这个框架，这个是罗晓俊开源的一个项目，技术是非常牛逼的，不过因为用户量少，并且作者可能也没有投入到生产环境，在更新版本的时候会出现一些意想不到的 bug, 我也是多次给其提 issue, 也算是为 tarsphp 生态尽一份...</div></div></div></a><a class="pagination-related" href="/posts/0a388c9b6b76/" title="项目发布中的tars_start.sh是如何生成的？"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185454.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-09</div><div class="info-item-2">项目发布中的tars_start.sh是如何生成的？</div></div><div class="info-2"><div class="info-item-1">开始发布任务之后，我们都会在 bin 目录下看见 tars_start.sh 文件。但是这个文件是如何获取的呢？为了探究这个问题，我们首先下载源码到本地。 1git clone git@github.com:TarsCloud/TarsFramework.git  然后这里我使用 vscode 进行全局搜索 tars_start.sh 这个文件名。  从中我们发现其实是使用了常量 TARS_SCRIPT 这个变量，所以我们再搜索这个变量。  然后我们就会发现 save2file 函数就是保存 tars_start.sh 的脚本，然后我们可以推测这个代码中是否还存在着具体文件逻辑写入。  然后我在前面就找到了如下的代码，对比发现知道，就是从这里面进行编写的服务启动脚本。   </div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">梧桐树下</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/dmf-code" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">hello world!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-compose-%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">docker-compose 安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DaoCloud-%E9%95%9C%E5%83%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">DaoCloud 镜像配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tars-%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA-docker-compose-%E6%96%87%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">tars 环境搭建 docker-compose 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%EF%BC%8C%E9%85%8D%E7%BD%AE%E6%9B%B4%E6%96%B0%E9%87%8D%E5%90%AF"><span class="toc-number">4.</span> <span class="toc-text">启动，配置更新重启</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%97%AD"><span class="toc-number">5.</span> <span class="toc-text">关闭</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e3a9f1b5ccce/" title="phpstorm设置"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220725102830.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="phpstorm设置"/></a><div class="content"><a class="title" href="/posts/e3a9f1b5ccce/" title="phpstorm设置">phpstorm设置</a><time datetime="2022-07-25T02:25:28.000Z" title="发表于 2022-07-25 10:25:28">2022-07-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311212849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="创建一个属于自己的composer包"/></a><div class="content"><a class="title" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包">创建一个属于自己的composer包</a><time datetime="2022-03-11T13:27:52.000Z" title="发表于 2022-03-11 21:27:52">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b714019c46a6/" title="项目代码演进"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311211230.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目代码演进"/></a><div class="content"><a class="title" href="/posts/b714019c46a6/" title="项目代码演进">项目代码演进</a><time datetime="2022-03-11T13:10:11.000Z" title="发表于 2022-03-11 21:10:11">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24511055805f/" title="解决github图床图片无法显示问题"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20220125214108.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决github图床图片无法显示问题"/></a><div class="content"><a class="title" href="/posts/24511055805f/" title="解决github图床图片无法显示问题">解决github图床图片无法显示问题</a><time datetime="2022-01-25T13:39:29.000Z" title="发表于 2022-01-25 21:39:29">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fadc5b6fb548/" title="docker-remote-api使用"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210812231825.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker-remote-api使用"/></a><div class="content"><a class="title" href="/posts/fadc5b6fb548/" title="docker-remote-api使用">docker-remote-api使用</a><time datetime="2021-08-12T15:17:08.000Z" title="发表于 2021-08-12 23:17:08">2021-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 梧桐树下</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 5.4.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+  const getUtterancesTheme = theme => theme === 'dark' ? 'photon-dark' : 'github-light'
+
+  const loadUtterances = (el = document, key) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyUtterances = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const config = {
+      src: 'https://utteranc.es/client.js',
+      repo: 'dmf-code/comments',
+      theme: getUtterancesTheme(document.documentElement.getAttribute('data-theme')),
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      'issue-term': isShuoshuo ? key : (option && option['issue-term']) || 'pathname'
+    }
+
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => ele.setAttribute(key, value))
+    el.querySelector('#utterances-wrap').appendChild(ele)
+  }
+
+  const changeUtterancesTheme = theme => {
+    const iframe = document.querySelector('#utterances-wrap iframe')
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: getUtterancesTheme(theme)
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeUtterancesTheme, 'utterances')
+
+  if (isShuoshuo) {
+    'Utterances' === 'Utterances'
+      ? window.shuoshuoComment = { loadComment: loadUtterances }
+      : window.loadOtherComment = loadUtterances
+    return
+  }
+  
+  if ('Utterances' === 'Utterances' || !false) {
+    if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+    else loadUtterances()
+  } else {
+    window.loadOtherComment = loadUtterances
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

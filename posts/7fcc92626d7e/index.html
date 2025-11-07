@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CRM系统设计思路 | 梧桐树下</title><meta name="author" content="梧桐树下"><meta name="copyright" content="梧桐树下"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="序CRM 全称 Customer Relationship Management,中文意思是客户关系管理。  为什么需要 CRM ?对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 Excel 里面找时间的浪费是非常大的。为了提高整体效率，CRM 系统的出现是非常必要的。  普通的 CRM 可能是服务于自身公司的。然而我接触的却是平台服务商家">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CRM系统设计思路">
+<meta property="og:url" content="https://siteg.cc/posts/7fcc92626d7e/index.html">
+<meta property="og:site_name" content="梧桐树下">
+<meta property="og:description" content="序CRM 全称 Customer Relationship Management,中文意思是客户关系管理。  为什么需要 CRM ?对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 Excel 里面找时间的浪费是非常大的。为了提高整体效率，CRM 系统的出现是非常必要的。  普通的 CRM 可能是服务于自身公司的。然而我接触的却是平台服务商家">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg">
+<meta property="article:published_time" content="2021-04-13T14:45:28.000Z">
+<meta property="article:modified_time" content="2025-11-07T10:18:05.898Z">
+<meta property="article:author" content="梧桐树下">
+<meta property="article:tag" content="业务场景思考">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CRM系统设计思路",
+  "url": "https://siteg.cc/posts/7fcc92626d7e/",
+  "image": "https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg",
+  "datePublished": "2021-04-13T14:45:28.000Z",
+  "dateModified": "2025-11-07T10:18:05.898Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "梧桐树下",
+      "url": "https://siteg.cc"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://siteg.cc/posts/7fcc92626d7e/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8J629MTR"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-MB8J629MTR')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-MB8J629MTR', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 梧桐树下","link":"链接: ","source":"来源: 梧桐树下","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CRM系统设计思路',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">梧桐树下</span></a><a class="nav-page-title" href="/"><span class="site-name">CRM系统设计思路</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CRM系统设计思路</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-13T14:45:28.000Z" title="发表于 2021-04-13 22:45:28">2021-04-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.898Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">系统设计</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">431</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h3 id="序"><a href="#序" class="headerlink" title="序"></a>序</h3><p><code>CRM</code> 全称 <code>Customer Relationship Management</code>,中文意思是客户关系管理。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224708.png" alt="image.png"></p>
+<h3 id="为什么需要-CRM"><a href="#为什么需要-CRM" class="headerlink" title="为什么需要 CRM ?"></a>为什么需要 <code>CRM</code> ?</h3><p>对于很多商家来说，怎么去获取客户是非常重要的一件事情。而且人力管理数据也是一件非常痛苦的事情，要在一堆的 <code>Excel</code> 里面找时间的浪费是非常大的。为了提高整体效率，<code>CRM</code> 系统的出现是非常必要的。</p>
+<blockquote>
+<p>普通的 <code>CRM</code> 可能是服务于自身公司的。然而我接触的却是平台服务商家的层次。相对传统的模式多出了一个 <strong><em>平台</em></strong> 角色。</p>
+</blockquote>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>平台端通过自身渠道获取到一系列客资，然后在平台后台中对客资录入。客资录入后就可以对商家渠道进行分发。</p>
+<ol>
+<li>人工指派</li>
+<li>红包雨渠道</li>
+<li>自动匹配</li>
+</ol>
+<p>其中红包雨和自动匹配都是采用智能匹配的形式，这里会对客资和商家进行打标操作，然后匹配对应的打标数据，提高客资与商家的契合度。</p>
+<p>然后这里面还存在着商家的权重数据这些</p>
+<ol>
+<li>基础获客数</li>
+<li>权重获客数</li>
+</ol>
+<p>基础获客数是由平台运营进行人工配置数量，只有自动派发小于基础获客数才会进行，这里面还有个每天派发数限制，保证一天不会全部获客数使用完。</p>
+<p>权重获客数是由商家在商家端做出的一系列操作，然后权重系统运算得出的分值，这个是每周更新一次。然后这个分值就会决定你在红包雨中能抢多少客资。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://siteg.cc">梧桐树下</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://siteg.cc/posts/7fcc92626d7e/">https://siteg.cc/posts/7fcc92626d7e/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://siteg.cc" target="_blank">梧桐树下</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E4%B8%9A%E5%8A%A1%E5%9C%BA%E6%99%AF%E6%80%9D%E8%80%83/">业务场景思考</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413224609.jpeg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/posts/de9624f0e26e/" title="tarsweb平台搭建"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210509185133.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">tarsweb平台搭建</div></div><div class="info-2"><div class="info-item-1">环境推荐使用：Centos7 docker 环境搭建可以自己在网上找教程，文章中就不再说明了。 docker-compose 安装123sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-composesudo chmod +x /usr/local/bin/docker-compose  DaoCloud 镜像配置123curl -L https://get.daocloud.io/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-composechmod +x /usr/local/bin/docker-compose  tars 环境搭建 docker-compose 文件12345678910111213...</div></div></div></a><a class="pagination-related" href="/posts/4089df62f534/" title="设计模式系列-抽象工厂模式"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@article/picGo/20210413221746.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">设计模式系列-抽象工厂模式</div></div><div class="info-2"><div class="info-item-1">介绍抽象工厂模式也可以叫为产品族模式，因为它是负责一个套餐的生产。比如一个硬件代工厂要生产 Mac 的鼠标和键盘，然后又接到了华为的鼠标和键盘生成需求。因为华为和 Mac 是两个不同的公司，所以他们的产品外观，性能也有不同要求。然后将这些组合起来一起，就形成了一个产品族。 项目结构 UML 图 代码Mouse.php 1234567&lt;?phpinterface Mouse&#123;    public function click();&#125;  Keyboard.php 1234567&lt;?phpinterface Keyboard&#123;    public function input();&#125;  Factory.php 123456789&lt;?phpinterface Factory&#123;    public function createMouse();    public function createKeyboard();&#125;  WinKeyboard.php 1234567891011&lt;?phpclass Win...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/0f7c209ce533/" title="权重系统设计思路"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210413215700.jpeg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-13</div><div class="info-item-2">权重系统设计思路</div></div><div class="info-2"><div class="info-item-1">简介权重通常是指某一因素或指标相对于某一事物的重要程度。在电商中我们可以根据用户行为进行数据埋点，进而对其进行权重配分，更专业的叫法就是 用户画像 。不同的角度有不同的叫法，但是权重主要还是为了帮助我们更好的了解使用者的使用轨迹。 模块主要划分为下面三个模块  规则 聚合统计 数据埋点  规则根据数据进行权重配分，因为每个数据的配分都是不同的。比如：用户每天登录一次游戏，那么就加一分这样。然后对于分值大于某个值后可以春节发个积极奖等等。 聚合统计根据埋点获取到的数据进行聚合，比如：将每天的数据聚合成每个月，然后再匹配当前的规则进行权重配分。 数据埋点根据前端对接埋点接口，然后将数据落地，数据的来源基本来自埋点。具体如何设计埋点可以看看那这一篇文章。如何做好数据埋点？ 例子权重系统在之前工作当中有实施过，现在大概说一下当时的情况。  定时任务拉取各个微服务系统的埋点数据 定时任务对当天数据根据权重规则进行配分并按天将数据落地 定时任务根据业务对数据进行聚合处理  规则定义12345678910CREATE TABLE &#96;rule_path&#96; (  &#96;id&#...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">梧桐树下</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/dmf-code" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">hello world!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-CRM"><span class="toc-number">2.</span> <span class="toc-text">为什么需要 CRM ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">流程</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e3a9f1b5ccce/" title="phpstorm设置"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220725102830.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="phpstorm设置"/></a><div class="content"><a class="title" href="/posts/e3a9f1b5ccce/" title="phpstorm设置">phpstorm设置</a><time datetime="2022-07-25T02:25:28.000Z" title="发表于 2022-07-25 10:25:28">2022-07-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311212849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="创建一个属于自己的composer包"/></a><div class="content"><a class="title" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包">创建一个属于自己的composer包</a><time datetime="2022-03-11T13:27:52.000Z" title="发表于 2022-03-11 21:27:52">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b714019c46a6/" title="项目代码演进"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311211230.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目代码演进"/></a><div class="content"><a class="title" href="/posts/b714019c46a6/" title="项目代码演进">项目代码演进</a><time datetime="2022-03-11T13:10:11.000Z" title="发表于 2022-03-11 21:10:11">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24511055805f/" title="解决github图床图片无法显示问题"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20220125214108.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决github图床图片无法显示问题"/></a><div class="content"><a class="title" href="/posts/24511055805f/" title="解决github图床图片无法显示问题">解决github图床图片无法显示问题</a><time datetime="2022-01-25T13:39:29.000Z" title="发表于 2022-01-25 21:39:29">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fadc5b6fb548/" title="docker-remote-api使用"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210812231825.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker-remote-api使用"/></a><div class="content"><a class="title" href="/posts/fadc5b6fb548/" title="docker-remote-api使用">docker-remote-api使用</a><time datetime="2021-08-12T15:17:08.000Z" title="发表于 2021-08-12 23:17:08">2021-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 梧桐树下</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 5.4.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+  const getUtterancesTheme = theme => theme === 'dark' ? 'photon-dark' : 'github-light'
+
+  const loadUtterances = (el = document, key) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyUtterances = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const config = {
+      src: 'https://utteranc.es/client.js',
+      repo: 'dmf-code/comments',
+      theme: getUtterancesTheme(document.documentElement.getAttribute('data-theme')),
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      'issue-term': isShuoshuo ? key : (option && option['issue-term']) || 'pathname'
+    }
+
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => ele.setAttribute(key, value))
+    el.querySelector('#utterances-wrap').appendChild(ele)
+  }
+
+  const changeUtterancesTheme = theme => {
+    const iframe = document.querySelector('#utterances-wrap iframe')
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: getUtterancesTheme(theme)
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeUtterancesTheme, 'utterances')
+
+  if (isShuoshuo) {
+    'Utterances' === 'Utterances'
+      ? window.shuoshuoComment = { loadComment: loadUtterances }
+      : window.loadOtherComment = loadUtterances
+    return
+  }
+  
+  if ('Utterances' === 'Utterances' || !false) {
+    if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+    else loadUtterances()
+  } else {
+    window.loadOtherComment = loadUtterances
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

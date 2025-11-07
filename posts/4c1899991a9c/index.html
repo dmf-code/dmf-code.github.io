@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Vue动态路由 | 梧桐树下</title><meta name="author" content="梧桐树下"><meta name="copyright" content="梧桐树下"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="为什么使用动态路由？因为后台会存在角色，角色中会有不同的菜单数据，这里面就会出现路由不能写死的问题？如何解决，上动态路由。 设计思路 登录的时候对异步请求数据保存到 localstorage 中 在 router.beforeEach 路由守卫中添加 localstorage 菜单数据加载 根据加载的菜单数据，递归加载组件，因为本地只保存 component 路径 最后使用 router.addR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue动态路由">
+<meta property="og:url" content="https://siteg.cc/posts/4c1899991a9c/index.html">
+<meta property="og:site_name" content="梧桐树下">
+<meta property="og:description" content="为什么使用动态路由？因为后台会存在角色，角色中会有不同的菜单数据，这里面就会出现路由不能写死的问题？如何解决，上动态路由。 设计思路 登录的时候对异步请求数据保存到 localstorage 中 在 router.beforeEach 路由守卫中添加 localstorage 菜单数据加载 根据加载的菜单数据，递归加载组件，因为本地只保存 component 路径 最后使用 router.addR">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224604.jpeg">
+<meta property="article:published_time" content="2021-04-06T14:24:49.000Z">
+<meta property="article:modified_time" content="2025-11-07T10:18:05.902Z">
+<meta property="article:author" content="梧桐树下">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224604.jpeg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Vue动态路由",
+  "url": "https://siteg.cc/posts/4c1899991a9c/",
+  "image": "https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224604.jpeg",
+  "datePublished": "2021-04-06T14:24:49.000Z",
+  "dateModified": "2025-11-07T10:18:05.902Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "梧桐树下",
+      "url": "https://siteg.cc"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://siteg.cc/posts/4c1899991a9c/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-MB8J629MTR"></script><script>window.dataLayer = window.dataLayer || []
+function gtag(){dataLayer.push(arguments)}
+gtag('js', new Date())
+gtag('config', 'G-MB8J629MTR')
+btf.addGlobalFn('pjaxComplete', () => {
+  gtag('config', 'G-MB8J629MTR', {'page_path': window.location.pathname})
+}, 'google_analytics')
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 梧桐树下","link":"链接: ","source":"来源: 梧桐树下","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vue动态路由',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 5.4.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">梧桐树下</span></a><a class="nav-page-title" href="/"><span class="site-name">Vue动态路由</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 目录</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-book"></i><span> 设计模式系列</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/posts/301a1d5e8a66/"><span> 创造型-简单工厂模式</span></a></li><li><a class="site-page child" href="/posts/2c27b9e99745/"><span> 创造型-工厂方法模式</span></a></li><li><a class="site-page child" href="/posts/4089df62f534/"><span> 创造型-抽象工厂模式</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Vue动态路由</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-06T14:24:49.000Z" title="发表于 2021-04-06 22:24:49">2021-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-07T10:18:05.902Z" title="更新于 2025-11-07 18:18:05">2025-11-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Vue/">Vue</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">760</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h3 id="为什么使用动态路由？"><a href="#为什么使用动态路由？" class="headerlink" title="为什么使用动态路由？"></a>为什么使用动态路由？</h3><p>因为后台会存在角色，角色中会有不同的菜单数据，这里面就会出现路由不能写死的问题？如何解决，上动态路由。</p>
+<h3 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h3><ol>
+<li>登录的时候对异步请求数据保存到 <code>localstorage</code> 中</li>
+<li>在 <code>router.beforeEach</code> 路由守卫中添加 <code>localstorage</code> 菜单数据加载</li>
+<li>根据加载的菜单数据，递归加载组件，因为本地只保存 <code>component</code> 路径</li>
+<li>最后使用 <code>router.addRoutes</code> 将组装好的数据填充进来就完成了</li>
+</ol>
+<h3 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h3><h4 id="为什么路由不报错，进入该路由界面无显示任何数据？"><a href="#为什么路由不报错，进入该路由界面无显示任何数据？" class="headerlink" title="为什么路由不报错，进入该路由界面无显示任何数据？"></a>为什么路由不报错，进入该路由界面无显示任何数据？</h4><p>这是因为思想出问题了，一开始在登录中将 <code>component</code> 直接 <code>import</code> 进来了，然后再保存到 <code>localstorage</code> 。所以理所当然认为本地保存了组件信息，这个和周总（同事）讨论过。他也不知道怎么回事，但是我突然就说没有加载组件进来，果然陷入思维困局需要第二者。</p>
+<h5 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h5><p><code>component</code> 字段保存组件路径，在需要加载的时候再 <code>import</code> 进来。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">BuildRoutes</span>(<span class="params">routes</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> element = &#123;</span><br><span class="line">    name: routes.name,</span><br><span class="line">    path: routes.path,</span><br><span class="line">    component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">`@/<span class="subst">$&#123;routes.component&#125;</span>.vue`</span>),</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (routes.component == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> element.component;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isNull(routes.children) || !isUndefined(routes.children)) &#123;</span><br><span class="line">    element.children = [];</span><br><span class="line">    routes.children.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      element.children.push(BuildRoutes(item));</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> element;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="如何保证无路由时后台获取？"><a href="#如何保证无路由时后台获取？" class="headerlink" title="如何保证无路由时后台获取？"></a>如何保证无路由时后台获取？</h4><p>正如标题所讲，我首先的思路就是在 <code>router.beforeEach</code> 中判断无路由就直接后台请求获取。这样子做就会有一个问题，那就是如何判断后台数据获取到了的问题。因为在守卫中是同步的，而我在这里使用的是异步库 <code>axios</code> 。所以这里就会导致短期会有多个请求</p>
+<h5 id="解决方案：-1"><a href="#解决方案：-1" class="headerlink" title="解决方案："></a>解决方案：</h5><p>将路由信息在登录中保存，这样子就不会出现多次请求问题，因为登录只会进行一次，所以请求后台数据并保存到本地也只会是一次。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 递归组装路由信息</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dynamicBuild</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> element = &#123;</span><br><span class="line">    name: source.label,</span><br><span class="line">    path: source.full_url,</span><br><span class="line">    component: source.component,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (source.children != <span class="literal">null</span>) &#123;</span><br><span class="line">    element.children = [];</span><br><span class="line">    source.children.forEach(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">      element.children.push(dynamicBuild(item));</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> element;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vuex mutations 函数</span></span><br><span class="line">generateRoutes: <span class="function">(<span class="params">state, routes</span>) =&gt;</span> &#123;</span><br><span class="line">  state.addRouters = routes;</span><br><span class="line">  <span class="keyword">let</span> routers = BuildRoutes(routes);</span><br><span class="line">  <span class="keyword">if</span> (isObject(routers)) &#123;</span><br><span class="line">    routers = [routers];</span><br><span class="line">  &#125;</span><br><span class="line">  router.addRoutes(routers);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 动态路由请求数据获取</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dynamicRouter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  menuList().then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> backendRouter;</span><br><span class="line">    backendRouter = dynamicBuild(res.data.data[<span class="number">0</span>]);</span><br><span class="line">    storage.setItem(&#123;</span><br><span class="line">      name: <span class="string">&quot;backend_router&quot;</span>,</span><br><span class="line">      value: backendRouter,</span><br><span class="line">      expires: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() + <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    store.dispatch(<span class="string">&quot;GenerateRoutes&quot;</span>, backendRouter);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="如何保证动态路由信息不会重复添加？"><a href="#如何保证动态路由信息不会重复添加？" class="headerlink" title="如何保证动态路由信息不会重复添加？"></a>如何保证动态路由信息不会重复添加？</h4><p>首先在路由守卫当中，我们要保证添加过路由后就不再添加进来。所以我们就要在全局中保存所需要的信息，这里买了 <code>vuex</code> 就是非常好的方法。首先我们应该在 <code>state</code> 中添加一个 <code>addRouters</code> 变量，默认是 <code>null</code> 然后就可以根据这个值来判断是否需要添加了。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://siteg.cc">梧桐树下</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://siteg.cc/posts/4c1899991a9c/">https://siteg.cc/posts/4c1899991a9c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://siteg.cc" target="_blank">梧桐树下</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a></div><div class="post-share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224604.jpeg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/posts/8e99653f9fd8/" title="教程组件设计开发思路"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224814.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">教程组件设计开发思路</div></div><div class="info-2"><div class="info-item-1">设计初衷编写代码过程中最讨厌的就是重复的事情做的多过 3 次,所以在做项目当中自己不多不少都会有一种写复用代码的冲动。 思路自己看过最多的论坛就是 Laravel 的，里面也有教程这个功能，自己很大一种程度就是想模仿这个功能。 教程有两点：  菜单栏 内容跟着菜单联动   所以这里面我们就明白知道，菜单栏与教程内容是关联关系的。然后看见大部分网上的教程都是采用不同的 url 来对每个菜单进行跳转的。 实践需求分析明白后，在生成菜单这里就遇到坑。如果是采用不同的 url 的话就会要在生成菜单的时候要填写 url , 而这个 url 明显是要英文字母的。这个有打算使用拼音来解决，不过因为时间成本有点高最后就放弃了。要做这个需求那么我就要将这个组件封装的非常复杂，要动态添加路由进去，这个明显是不符合的。 最后决定使用一开始将所有数据全部查询出来，然后点击不同的菜单，然后赋值到 mavon-editor 这个组件中去。 组件目录结构： 12345│  Index.vue│└─Menu        Menu.vue        SubMenu.vue  Index.vue 文件 123...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/posts/8e99653f9fd8/" title="教程组件设计开发思路"><img class="cover" src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210409224814.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-06</div><div class="info-item-2">教程组件设计开发思路</div></div><div class="info-2"><div class="info-item-1">设计初衷编写代码过程中最讨厌的就是重复的事情做的多过 3 次,所以在做项目当中自己不多不少都会有一种写复用代码的冲动。 思路自己看过最多的论坛就是 Laravel 的，里面也有教程这个功能，自己很大一种程度就是想模仿这个功能。 教程有两点：  菜单栏 内容跟着菜单联动   所以这里面我们就明白知道，菜单栏与教程内容是关联关系的。然后看见大部分网上的教程都是采用不同的 url 来对每个菜单进行跳转的。 实践需求分析明白后，在生成菜单这里就遇到坑。如果是采用不同的 url 的话就会要在生成菜单的时候要填写 url , 而这个 url 明显是要英文字母的。这个有打算使用拼音来解决，不过因为时间成本有点高最后就放弃了。要做这个需求那么我就要将这个组件封装的非常复杂，要动态添加路由进去，这个明显是不符合的。 最后决定使用一开始将所有数据全部查询出来，然后点击不同的菜单，然后赋值到 mavon-editor 这个组件中去。 组件目录结构： 12345│  Index.vue│└─Menu        Menu.vue        SubMenu.vue  Index.vue 文件 123...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210410150305.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">梧桐树下</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/dmf-code" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">hello world!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么使用动态路由？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9D%91%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">坑点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%B7%AF%E7%94%B1%E4%B8%8D%E6%8A%A5%E9%94%99%EF%BC%8C%E8%BF%9B%E5%85%A5%E8%AF%A5%E8%B7%AF%E7%94%B1%E7%95%8C%E9%9D%A2%E6%97%A0%E6%98%BE%E7%A4%BA%E4%BB%BB%E4%BD%95%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">为什么路由不报错，进入该路由界面无显示任何数据？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-number">3.1.1.</span> <span class="toc-text">解决方案：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%97%A0%E8%B7%AF%E7%94%B1%E6%97%B6%E5%90%8E%E5%8F%B0%E8%8E%B7%E5%8F%96%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">如何保证无路由时后台获取？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A-1"><span class="toc-number">3.2.1.</span> <span class="toc-text">解决方案：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E4%BF%A1%E6%81%AF%E4%B8%8D%E4%BC%9A%E9%87%8D%E5%A4%8D%E6%B7%BB%E5%8A%A0%EF%BC%9F"><span class="toc-number">3.3.</span> <span class="toc-text">如何保证动态路由信息不会重复添加？</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e3a9f1b5ccce/" title="phpstorm设置"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220725102830.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="phpstorm设置"/></a><div class="content"><a class="title" href="/posts/e3a9f1b5ccce/" title="phpstorm设置">phpstorm设置</a><time datetime="2022-07-25T02:25:28.000Z" title="发表于 2022-07-25 10:25:28">2022-07-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311212849.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="创建一个属于自己的composer包"/></a><div class="content"><a class="title" href="/posts/54650cde2a44/" title="创建一个属于自己的composer包">创建一个属于自己的composer包</a><time datetime="2022-03-11T13:27:52.000Z" title="发表于 2022-03-11 21:27:52">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/b714019c46a6/" title="项目代码演进"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture/picGo/20220311211230.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="项目代码演进"/></a><div class="content"><a class="title" href="/posts/b714019c46a6/" title="项目代码演进">项目代码演进</a><time datetime="2022-03-11T13:10:11.000Z" title="发表于 2022-03-11 21:10:11">2022-03-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/24511055805f/" title="解决github图床图片无法显示问题"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20220125214108.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决github图床图片无法显示问题"/></a><div class="content"><a class="title" href="/posts/24511055805f/" title="解决github图床图片无法显示问题">解决github图床图片无法显示问题</a><time datetime="2022-01-25T13:39:29.000Z" title="发表于 2022-01-25 21:39:29">2022-01-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/fadc5b6fb548/" title="docker-remote-api使用"><img src="https://cdn.jsdelivr.net/gh/dmf-code/picture@main/picGo/20210812231825.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="docker-remote-api使用"/></a><div class="content"><a class="title" href="/posts/fadc5b6fb548/" title="docker-remote-api使用">docker-remote-api使用</a><time datetime="2021-08-12T15:17:08.000Z" title="发表于 2021-08-12 23:17:08">2021-08-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 梧桐树下</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 5.4.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.1"></script><script src="/js/main.js?v=5.5.1"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+  const getUtterancesTheme = theme => theme === 'dark' ? 'photon-dark' : 'github-light'
+
+  const loadUtterances = (el = document, key) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyUtterances = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const config = {
+      src: 'https://utteranc.es/client.js',
+      repo: 'dmf-code/comments',
+      theme: getUtterancesTheme(document.documentElement.getAttribute('data-theme')),
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      'issue-term': isShuoshuo ? key : (option && option['issue-term']) || 'pathname'
+    }
+
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => ele.setAttribute(key, value))
+    el.querySelector('#utterances-wrap').appendChild(ele)
+  }
+
+  const changeUtterancesTheme = theme => {
+    const iframe = document.querySelector('#utterances-wrap iframe')
+    if (iframe) {
+      const message = {
+        type: 'set-theme',
+        theme: getUtterancesTheme(theme)
+      };
+      iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeUtterancesTheme, 'utterances')
+
+  if (isShuoshuo) {
+    'Utterances' === 'Utterances'
+      ? window.shuoshuoComment = { loadComment: loadUtterances }
+      : window.loadOtherComment = loadUtterances
+    return
+  }
+  
+  if ('Utterances' === 'Utterances' || !false) {
+    if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+    else loadUtterances()
+  } else {
+    window.loadOtherComment = loadUtterances
+  }
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","meta[property=\"og:description\"]","link[rel=\"canonical\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: true,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      false
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
